@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2700458640">
+    <data-source source="LOCAL" name="MySQL - freight@localhost" uuid="4a544cb1-6cca-4b08-a4de-70ba80048ba4">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/freight</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9bdf98df99df9edf9f</user-password>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml" uuid="edbe2f2f-276b-413e-82d4-8474100bfba4">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/freight</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9bdf98df99df9edf9f</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

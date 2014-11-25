@@ -1,0 +1,39 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <beans:import resource="mvc-dispatcher-servlet.xml"/>
+
+    <beans:bean id="roleVoter"
+                class="org.springframework.security.access.vote.RoleVoter">
+        <beans:property name="rolePrefix" value=""></beans:property>
+    </beans:bean>
+
+    <beans:bean id="accessDecisionManager"
+                class="org.springframework.security.access.vote.AffirmativeBased">
+        <beans:constructor-arg name="decisionVoters"
+                               ref="roleVoter" />
+    </beans:bean>
+
+    <http>
+        <intercept-url pattern="/Freight/Driver/**" access="ROLE_DRIVER" />
+        <intercept-url pattern="/Freight/Employee/**" access="ROLE_EMPLOYEE" />
+        <form-login login-page="/Freight/Login" login-processing-url="/Freight/Auth"  authentication-failure-url="/Freight/Login?login_error=t" default-target-url="/Freight/Auth"/>
+
+        <logout invalidate-session="true" logout-success-url="/Freight/Login"
+                logout-url="/j_spring_security_logout" />
+    </http>
+    <beans:bean id="expressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="Employee" password="1234" authorities="EMPLOYEE" />
+                <user name="Driver" password="1234" authorities="DRIVER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
