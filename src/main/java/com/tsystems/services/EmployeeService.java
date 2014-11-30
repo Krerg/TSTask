@@ -3,6 +3,7 @@ package com.tsystems.services;
 import com.tsystems.Util.ResultMessage;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import com.tsystems.daos.DriverDAO;
 import com.tsystems.daos.ItemDAO;
@@ -24,16 +25,16 @@ import java.util.List;
 public class EmployeeService {
 
     @Autowired
-    private WagonDAO wDAO;
+    public WagonDAO wDAO;
 
     @Autowired
-    private DriverDAO dDAO;
+    public DriverDAO dDAO;
 
     @Autowired
-    private OrderDAO oDAO;
+    public OrderDAO oDAO;
 
     @Autowired
-    private ItemDAO iDAO;
+    public ItemDAO iDAO;
 
     private static EmployeeService es;
 
@@ -89,7 +90,7 @@ public class EmployeeService {
      * @param capacity           Wagon's capacity class (1,2,3)
      * @return information of adding wagon into db
      */
-    public final ResultMessage addWagon(final String registrationNumber, final int numberOfDrivers, final int capacity) {
+    public ResultMessage addWagon(String registrationNumber, int numberOfDrivers, int capacity) {
         logger.info("Add wagon " + registrationNumber);
         if (wDAO.getWagon(registrationNumber) != null) {
 
@@ -122,7 +123,7 @@ public class EmployeeService {
      * @param patronymic    driver's patronymic
      * @return information of adding driver
      */
-    public final ResultMessage addDriver(final int driverLicense, final String surname, final String name, final String patronymic) {
+    public ResultMessage addDriver(final int driverLicense, final String surname, final String name, final String patronymic) {
         logger.info("Add driver " + driverLicense);
         if (dDAO.getDriver(driverLicense) != null) {
             return new ResultMessage(EXISTING_DRIVER_LICENSE, false);
@@ -152,7 +153,7 @@ public class EmployeeService {
      * @param weight   item's weight
      * @return information of adding item into DB
      */
-    public final ResultMessage addItem(final String itemName, final int weight) {
+    public ResultMessage addItem(String itemName, int weight) {
         logger.info("Add item");
         Item temp = new Item();
         temp.setItemName(itemName);
@@ -172,7 +173,7 @@ public class EmployeeService {
     /**
      * @return List of all Orders
      */
-    public  final List<Order> getAllOrders() {
+    public final List<Order> getAllOrders() {
         logger.info("Get all orders");
         return oDAO.getAll();
     }
@@ -242,7 +243,7 @@ public class EmployeeService {
      * @param number Order's unique number
      * @return information of adding order into DB
      */
-    public final ResultMessage addOrder(final int number) {
+    public ResultMessage addOrder(int number) {
         logger.info("Add order " + number);
         if (oDAO.getOrder(number) != null) {
             return new ResultMessage(EXISTING_ORDER, false);
@@ -267,7 +268,7 @@ public class EmployeeService {
      * @param wagonNumber wagon's registration number
      * @return inrormation of adding wagon to order
      */
-    public final ResultMessage addWagonToOrder(final int orderNumber, final String wagonNumber) {
+    public ResultMessage addWagonToOrder(int orderNumber, String wagonNumber) {
         logger.info("Add wagon " + wagonNumber + " to Order " + orderNumber);
         Wagon wagonTemp = wDAO.getWagon(wagonNumber);
         Order orderTemp = oDAO.getOrder(orderNumber);
@@ -317,7 +318,7 @@ public class EmployeeService {
      * @param driverID driver's license number
      * @return information about adding driver to wagon in string type
      */
-    public final ResultMessage addDriverToWagon(final String wagonNumber, final int driverID) {
+    public ResultMessage addDriverToWagon(String wagonNumber, int driverID) {
         logger.info("Add driver " + driverID + " to wagon " + wagonNumber);
         Wagon wagonTemp = wDAO.getWagon(wagonNumber);
         Driver driverTemp = dDAO.getDriver(driverID);
@@ -344,7 +345,7 @@ public class EmployeeService {
      * @param item item's name
      * @return result of adding item to order in string type
      */
-    public final ResultMessage addItemToOrder(final int orderNumber, final String item) {
+    public ResultMessage addItemToOrder(int orderNumber, String item) {
         logger.info("Add item " + item + " to order " + orderNumber);
         Order orderTemp = oDAO.getOrder(orderNumber);
         if (orderTemp.getOrderStatus().equals(Order.DELIVERED_STATUS)) {
@@ -374,7 +375,7 @@ public class EmployeeService {
      * @param orderNumber order's number
      * @return information about finishing order in string type
      */
-    public final ResultMessage finishOrder(final int orderNumber) {
+    public ResultMessage finishOrder(int orderNumber) {
         logger.info("Finish order" + orderNumber);
         Order tempOrder = oDAO.getOrder(orderNumber);
         Wagon tempWagon = tempOrder.getWagon();

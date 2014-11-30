@@ -16,7 +16,7 @@
 <div class="min_width">
 	<div class="main">
         <!--header -->
-        <div style="margin-top:12px; margin-left:76%" id="upsideBar">
+        <div style="margin-top:12px; margin-left:80%" id="upsideBar">
             <h3>Hi,
             <c:set var="UserName" value="${UserName}"></c:set>
                 <font color="#2f4f4f">
@@ -24,8 +24,8 @@
                 </font>
 
                 <div style="margin-left: 180px;margin-top: -22px;">
-                    <form>
-            <input value="Logout" class="logOutButton" type="submit" action="/Freight/j_spring_security_logout">
+                    <form method="post">
+            <input value="Logout" class="logOutButton" type="submit" action="/j_spring_security_logout">
                     </button>
                         </form>
                  </div>
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="text_box" id="addDriver">
-                                <form action="/Freight/AddDriver/" method="post">
+                                <form action="/Freight/Employee/AddDriver/" method="post">
                                     <h1> Add new driver</h1>
                                     <h3>
                                     Enter driver license:
@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="text_box" id="addWagon">
-                                <form action="/Freight/AddWagon" method="post">
+                                <form action="/Freight/Employee/AddWagon" method="post">
                                     <h1>Add new wagon</h1>
                                     <h3>
                                     Enter registration number:
@@ -130,7 +130,7 @@
                             </div>
 
                             <div class="text_box" id="createNewOrder">
-                                <form action="/Employee" method="post">
+                                <form action="/Freight/Employee/AddItem" method="post">
                                     <h1>Create new order</h1>
                                     <h3>
                                     Enter order's number:
@@ -142,7 +142,7 @@
                             </div>
 
                             <div class="text_box" id="addDriverToWagon">
-                                <form action="/Employee" method="post">
+                                <form action="/Freight/Employee/AddDriverToWagon/" method="post">
                                     <h1>Add driver to wagon</h1>
                                     <h3>
                                         Choose driver:
@@ -205,7 +205,7 @@
                             </div>
 
                             <div class="text_box" id="addItemToOrder">
-                                <form action="/Freight/AddItemToOder" method="post">
+                                <form action="/Freight/Employee/AddItemToOder" method="post">
                                     <h1> Add item to order</h1>
                                     <c:set var="resultItemAddToOrder" value="${resultItemAddToOrder}"></c:set>
                                     <h3>

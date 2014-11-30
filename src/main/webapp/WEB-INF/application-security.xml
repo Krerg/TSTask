@@ -19,16 +19,18 @@
                                ref="roleVoter" />
     </beans:bean>
 
-    <http>
+    <http authentication-manager-ref="authenticationManager" access-decision-manager-ref="accessDecisionManager">
         <intercept-url pattern="/Freight/Driver/**" access="ROLE_DRIVER" />
         <intercept-url pattern="/Freight/Employee/**" access="ROLE_EMPLOYEE" />
-        <form-login login-page="/Freight/Login" login-processing-url="/Freight/Auth"  authentication-failure-url="/Freight/Login?login_error=t" default-target-url="/Freight/Auth"/>
+        <form-login login-page="/Login" authentication-failure-url="/Freight/Login"
+                    username-parameter="j_username" password-parameter="j_password"
+                    default-target-url="/Auth" />
+        <logout logout-success-url="/"  delete-cookies="JSESSIONID" invalidate-session="true"  />
 
-        <logout invalidate-session="true" logout-success-url="/Freight/Login"
-                logout-url="/j_spring_security_logout" />
+
     </http>
     <beans:bean id="expressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
-    <authentication-manager>
+    <authentication-manager id="authenticationManager">
         <authentication-provider>
             <user-service>
                 <user name="Employee" password="1234" authorities="EMPLOYEE" />

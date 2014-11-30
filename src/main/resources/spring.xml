@@ -6,16 +6,4 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <bean id="transactionHabdler" class="com.tsystems.Util.TransactionHandler"></bean>
-    <bean id="dDAO" class="com.tsystems.daos.DriverDAO"></bean>
-    <bean id="wDAO" class="com.tsystems.daos.WagonDAO"></bean>
-    <bean id="oDAO" class="com.tsystems.daos.OrderDAO"></bean>
-    <bean id="iDAO" class="com.tsystems.daos.ItemDAO"></bean>
-
-    <import resource="application-security.xml"/>
-    <import resource="hibernate-context.xml"/>
-    <context:component-scan base-package="com.tsystems.services"/>
-   <aop:aspectj-autoproxy/>
-
 </beans>

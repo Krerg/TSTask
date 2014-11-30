@@ -1,22 +1,17 @@
-//package ru.tsystems.Freight.Test;
+package com.tsystems.Test;
 
-/*import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import ru.tsystems.Freight.Entity.Driver;
-import ru.tsystems.Freight.Services.DriverService;
-import ru.tsystems.Freight.Services.EmployeeService;
+import com.tsystems.Util.HibernateUtil;
+import com.tsystems.daos.DriverDAO;
+import com.tsystems.daos.OrderDAO;
+import com.tsystems.daos.WagonDAO;
+import com.tsystems.services.EmployeeService;
+import org.junit.*;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Created by User on 27.10.2014.
- */
-/*
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import ru.tsystems.Freight.Services.EmployeeService;
-
-public class EmployeeServiceTest {
+public class EmployeeServiceTest{
 
     public static final String SUCCES_ORDER_ADD = "Succesful order adding";
     public static final String ERROR_ORDER_ADD = "Error while adding order";
@@ -53,28 +48,57 @@ public class EmployeeServiceTest {
 
     public static final String ORDER_DELIVERED = "Order already delivered";
 
+    public static final String DELETE_DRIVER_SCRIPT = "DELETE FROM DRIVER;";
+    public static final String DELETE_WAGON_SCRIPT = "DELETE FROM WAGON;";
+    public static final String DELETE_ORDER_SCRIPT = "DELETE FROM ORDER_;";
+    public static final String DELETE_ITEM_SCRIPT = "DELETE FROM ITEM;";
+
+
+    @Autowired
     private EmployeeService employeeServices;
 
     @Before
     public void init() {
-        employeeServices = EmployeeService.getService();
-    }
-    @Test
-    public void test1() {
-        Assert.assertEquals(employeeServices.addDriverToWagon("1234",12345),ERROR_DRIVER_ADD_TO_WAGON);
+        employeeServices = new EmployeeService();
+        employeeServices.dDAO = new DriverDAO();
+        employeeServices.wDAO = new WagonDAO();
+        employeeServices.oDAO = new OrderDAO();
+        HibernateUtil.startTransaction();
+        HibernateUtil.getSession().createSQLQuery(DELETE_DRIVER_SCRIPT).executeUpdate();
+        HibernateUtil.getSession().createSQLQuery(DELETE_ORDER_SCRIPT).executeUpdate();
+        HibernateUtil.getSession().createSQLQuery(DELETE_ITEM_SCRIPT).executeUpdate();
+        HibernateUtil.getSession().createSQLQuery(DELETE_WAGON_SCRIPT).executeUpdate();
+        HibernateUtil.commitTransaction();
     }
 
     @Test
-    public void test2() {
-        Assert.assertEquals(employeeServices.addOrder(5678),SUCCES_ORDER_ADD);
+    public void driverAddSucces()
+    {
+        Assert.assertEquals(employeeServices.addDriver(12345678,"Mylnikov","Alexander","Igorevich").getMessage(), SUCCES_DRIVER_ADD);
     }
 
     @Test
-    public void test3() {
-        Assert.assertEquals(employeeServices.addWagon("YY12345678", 2, 2), ERROR_WAGON_ADD);
+    public void driverAddError() {
+        Assert.assertEquals(employeeServices.addDriverToWagon("1234",12345).getMessage(), ERROR_DRIVER_ADD_TO_WAGON);
+    }
+
+    @Test
+    public void wagonAddSucces() {
+        Assert.assertEquals(employeeServices.addWagon("PP12345",3,3).getMessage(), SUCESS_WAGON_ADD);
+    }
+
+
+
+    @Test
+    public void addOrderSucces() {
+        Assert.assertEquals(employeeServices.addOrder(5678).getMessage(), SUCCES_ORDER_ADD);
+    }
+
+    @Test
+    public void driverAddIncorrect() {
+        Assert.assertEquals(employeeServices.addWagon("YY12345678", 2, 2).getMessage(), INCORRECT_WAGON_NUMBER);
     }
 
 
 
 }
-*/

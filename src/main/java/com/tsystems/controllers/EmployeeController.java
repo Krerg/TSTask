@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -207,8 +208,15 @@ public class EmployeeController {
         return "employeePage";
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String getPagePOST(ModelMap model, HttpServletRequest request)
+    {
+        formPage(request);
+        return  "employeePage";
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getPage(ModelMap model, HttpServletRequest request)
+    public String getPageGET(ModelMap model, HttpServletRequest request)
     {
         formPage(request);
         return  "employeePage";
@@ -223,6 +231,7 @@ public class EmployeeController {
         request.setAttribute("Wagons", wagons);
         request.setAttribute("Orders", orders);
         request.setAttribute("Items", items);
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
         request.setAttribute("UserName", SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

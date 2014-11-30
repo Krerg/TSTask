@@ -89,7 +89,7 @@ input[type="submit"]:hover{
     background:#121212;
 }
 input[type="submit"]{
-    width:450px;
+    width:80px;
     text-align: center;
     background:#434343;
     border:0;

@@ -11,17 +11,18 @@ import org.aspectj.lang.annotation.Before;
 @Aspect
 public class TransactionHandler {
 
-    @AfterReturning(value = "execution(String com.tsystems.services..*(..))")
+    @AfterReturning(value = "execution(* com.tsystems.daos..*(..))")
     public void commitTransaction() {
         HibernateUtil.commitTransaction();
     }
 
-    @Before("execution(String com.tsystems.services..*(..))")
-    public void startTransaction() {
+    @Before("execution(* com.tsystems.daos..*(..))")
+    public void startTransaction()
+    {
         HibernateUtil.startTransaction();
     }
 
-    @AfterThrowing(pointcut = "execution(String com.tsystems.services..*(..))")
+    @AfterThrowing(pointcut = "execution(* com.tsystems.daos..*(..))")
     public void rollback() {
         HibernateUtil.rollbackTransaction();
     }

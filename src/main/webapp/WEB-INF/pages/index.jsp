@@ -9,7 +9,7 @@
 
 
         <div id="Login">
-            <form action="/Freight/Auth" method="post">
+            <form action="/Freight/j_spring_security_check" method="post">
 
                 <c:set var="response" value="${type}"></c:set>
                 <c:if test="${response != null}">

@@ -1,4 +1,4 @@
-package com.tsystems.Test;
+/*package com.tsystems.Test;
 
 import junit.framework.Assert;
 import org.junit.Before;
@@ -10,7 +10,7 @@ import com.tsystems.services.DriverService;
 /**
  * Created by User on 27.10.2014.
  */
-
+/*
 public class DriverServiceTest {
 
     @Autowired
@@ -39,3 +39,4 @@ public class DriverServiceTest {
     }
 
 }
+*/

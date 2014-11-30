@@ -22,7 +22,13 @@ public class LoginController {
     LoginService ls;
 
     @RequestMapping(value = {"/Auth"}, method = RequestMethod.POST)
-    public String login(ModelMap model) {
+    public String loginPOST(ModelMap model) {
+            return "index";
+    }
+
+
+    @RequestMapping(value = {"/Auth"}, method = RequestMethod.GET)
+    public String loginGET(ModelMap model) {
         Collection<GrantedAuthority> d = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         String role = null;
         //    String type = ls.validateLogin(request.getParameter("j_username"),request.getParameter("j_password"));
@@ -30,9 +36,9 @@ public class LoginController {
             role = authority.getAuthority();
         }
         if (role.equals(User.EMPLOYEE_TYPE)) {
-            return "employeePage";
+            return "forward:/Employee/";
         } else if (role.equals(User.DRIVER_TYPE)) {
-            return "driverPage";
+            return "forward:/Driver/";
         } else {
             return "index";
         }

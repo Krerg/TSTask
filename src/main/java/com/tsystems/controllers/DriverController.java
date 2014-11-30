@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by sasha_000 on 20.11.2014.
  */
 @Controller
-//@RequestMapping("/Driver")
+@RequestMapping("/Driver")
 public class DriverController {
 
     @Autowired
@@ -35,6 +37,22 @@ public class DriverController {
         }
         request.setAttribute("operationResult", rs);
         return "driverPage";
+    }
+
+    @RequestMapping(value = "/GetInfoRest", method = RequestMethod.GET)
+    @ResponseBody
+    public String getInfoREST(@RequestParam int driverLicense) {
+        ResultMessage rs = new ResultMessage(null, false);
+        String driverInfo = "";
+        try {
+            rs = ds.getInformationForDriver(driverLicense);
+        } catch (NumberFormatException e) {
+            driverInfo = "Incorrect input";
+            rs.setMessage(driverInfo);
+            rs.setSeccesful(false);
+        }
+        //return rs.getMessage();
+        return "Hello World";
     }
 
     @RequestMapping(value = "/DeliverItem", method = RequestMethod.POST)
